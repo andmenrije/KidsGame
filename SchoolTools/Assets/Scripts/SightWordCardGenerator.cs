@@ -14,8 +14,9 @@ public class SightWordCardGenerator : MonoBehaviour
     [SerializeField]
     private List<string> sightWords = new List<string>(10);
     [SerializeField]
-    List<GameObject> panelPrefab;
+    GameObject panelPrefab;
 
+    private string currentWord;
     Timer sightWordTimer;
 
     // Start is called before the first frame update
@@ -28,11 +29,16 @@ public class SightWordCardGenerator : MonoBehaviour
         //    sightWordTimer.Run();
         //}
 
+
+
+        panelPrefab.GetComponent<PanelDispay>().UpdateSightWord(currentWord);
     }
+
 
     private void Awake()
     {
-
+        currentWord = "";
+        
     }
 
 
@@ -47,12 +53,33 @@ public class SightWordCardGenerator : MonoBehaviour
     }
 
 
-    
+    public void GenerateNextWordToDisplay()
+    {
+        int nextIndex = sightWords.IndexOf(currentWord);
+        Debug.Log("SightWord index = " + nextIndex);
+        nextIndex = (nextIndex + 1) % 10;
+        Debug.Log("Next index = " + nextIndex);
+        currentWord = sightWords[nextIndex];
+        panelPrefab.GetComponent<PanelDispay>().UpdateSightWord(currentWord);
+    }
+
+    public void GenerateRandomWordToDisplay()
+    {
+        RandomWordFromList();
+        panelPrefab.GetComponent<PanelDispay>().UpdateSightWord(currentWord);
+    }
+
+
     private string RandomWordFromList()
     {
 
         int randomIndex = UnityEngine.Random.Range(0, sightWords.Count);
-        return sightWords[randomIndex];
+        while (currentWord == sightWords[randomIndex])
+        {
+            randomIndex = UnityEngine.Random.Range(0, sightWords.Count);
+        }
+        currentWord = sightWords[randomIndex];
+        return currentWord;
     }
 
 }

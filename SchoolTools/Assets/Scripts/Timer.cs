@@ -29,11 +29,11 @@ public class Timer : MonoBehaviour
 	/// </summary>
 	/// <value>duration</value>
 	public float Duration
-    {
+	{
 		set
-        {
+		{
 			if (!running)
-            {
+			{
 				totalSeconds = value;
 			}
 		}
@@ -45,7 +45,7 @@ public class Timer : MonoBehaviour
 	/// </summary>
 	/// <value>true if finished; otherwise, false.</value>
 	public bool Finished
-    {
+	{
 		get { return started && !running; } 
 	}
 	
@@ -54,25 +54,25 @@ public class Timer : MonoBehaviour
 	/// </summary>
 	/// <value>true if running; otherwise, false.</value>
 	public bool Running
-    {
+	{
 		get { return running; }
 	}
 
-    #endregion
+	#endregion
 
-    #region Methods
+	#region Methods
 
-    /// <summary>
-    /// Update is called once per frame
-    /// </summary>
-    void Update()
-    {	
+	/// <summary>
+	/// Update is called once per frame
+	/// </summary>
+	void Update()
+	{	
 		// update timer and check for finished
 		if (running)
-        {
+		{
 			elapsedSeconds += Time.deltaTime;
 			if (elapsedSeconds >= totalSeconds)
-            {
+			{
 				running = false;
 			}
 		}
@@ -86,13 +86,13 @@ public class Timer : MonoBehaviour
 	/// set the duration to something higher than 0
 	/// </summary>
 	public void Run()
-    {	
+	{	
 		// only run with valid duration
 		if (totalSeconds > 0)
-        {
+		{
 			started = true;
 			running = true;
-            elapsedSeconds = 0;
+			elapsedSeconds = 0;
 		}
 	}
 	
