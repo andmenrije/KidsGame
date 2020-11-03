@@ -17,6 +17,8 @@ public class ButtonActionManager : MonoBehaviour
     [SerializeField]
     private UnityEngine.UI.Button goToNextList;
     [SerializeField]
+    private UnityEngine.UI.Button quitApplication;
+    [SerializeField]
     TMP_Text SightWordLabel;
 
     int currentGameObjectIndex;
@@ -43,6 +45,8 @@ public class ButtonActionManager : MonoBehaviour
         UnityEngine.UI.Button nextListBtn = goToNextList.GetComponent<UnityEngine.UI.Button>();
         nextListBtn.onClick.AddListener(GoToNextList);
 
+        UnityEngine.UI.Button quitBtn = quitApplication.GetComponent<UnityEngine.UI.Button>();
+        quitBtn.onClick.AddListener(OnQuitButton);
 
         SightWordListContainer[currentGameObjectIndex].SetActive(true);
         UpdateLabel();
@@ -79,6 +83,11 @@ public class ButtonActionManager : MonoBehaviour
 
         Debug.Log("Generate random word to display");
         SightWordListContainer[currentGameObjectIndex].GetComponent<SightWordCardGenerator>().GenerateRandomWordToDisplay();
+    }
+
+    private void OnQuitButton()
+    {
+        Camera.main.GetComponent<GameManager>().QuitApplication();
     }
 
     private void UpdateLabel()
